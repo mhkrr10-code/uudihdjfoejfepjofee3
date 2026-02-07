@@ -2,7 +2,9 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from keep_alive import keep_alive
+import os
 
+# تشغيل سيرفر الويب للبقاء حياً
 keep_alive()
 
 intents = discord.Intents.all()
@@ -24,7 +26,6 @@ async def becam(interaction: discord.Interaction):
         if not interaction.guild.voice_client:
             await channel.connect()
             await interaction.response.send_message(f"✅ Be Cam đã vào kênh **{channel.name}**", ephemeral=True)
-            print(f"Bot đã vào voice: {channel.name}")
         else:
             await interaction.response.send_message("⚠️ Be Cam đang ở trong một kênh khác.", ephemeral=True)
     else:
@@ -35,9 +36,9 @@ async def out(interaction: discord.Interaction):
     if interaction.guild.voice_client:
         await interaction.guild.voice_client.disconnect()
         await interaction.response.send_message("🚪 Be Cam đã rời khỏi kênh voice.", ephemeral=True)
-        print("Bot đã rời voice.")
     else:
         await interaction.response.send_message("❌ Be Cam không ở trong kênh voice nào.", ephemeral=True)
 
-bot.run("MTQ2OTM0OTA1NDQyODIyMTU4Mg.G95kq7.JIyRljlBhXZ2avviI8gEckRivQOtz_Ksz3O4Tk")
-
+# قراءة التوكن من Environment Variables في Render
+token = os.getenv('DISCORD_TOKEN')
+bot.run(token)
