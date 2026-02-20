@@ -11,6 +11,12 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
+    activity = discord.Streaming(
+        name="By BuWael", 
+        url="https://www.twitch.tv/discord"
+    )
+    await bot.change_presence(activity=activity)
+    
     print(f"✅ Bot {bot.user} ")
     try:
         synced = await bot.tree.sync()
@@ -41,4 +47,3 @@ async def out(interaction: discord.Interaction):
 
 token = os.getenv('DISCORD_TOKEN')
 bot.run(token)
-
